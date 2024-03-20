@@ -237,7 +237,13 @@ sudo bash -c 'echo 0 > /sys/devices/platform/soc/1c69000.spi/spi_master/spi1/spi
 
   If the backlight didn't come on, check the wiring.
 
-  -Try this to put random dots on the screen:
+  - This should give the screen size:
+
+```
+cat /sys/class/graphics/fb0/virtual_size
+```
+
+-Try this to put random dots on the screen:
 
 ```
 sudo head -300 /dev/urandom > /dev/fb0
@@ -251,7 +257,14 @@ cat /proc/interrupts | grep spi
 
   If you don't see anything on the screen, check the wiring.
 	
-  -Try this to put an image on the screen:
+  - This should put some diffent fonts on the screen:
+
+```
+git clone --recursive https://github.com/NiLuJe/FBInk; cd FBInk; make linux
+for font in IBM UNSCII ALT THIN FANTASY MCR TALL BLOCK LEGGIE VEGGIE KATES FKP CTRLD ORP ORPB ORPI SCIENTIFICA SCIENTIFICAB SCIENTIFICAI TERMINUS TERMINUSB FATTY SPLEEN TEWI TEWIB TOPAZ MICROKNIGHT VGA COZETTE; do ./Release/static/fbink -pmh -c -y -6 -S 2 -F $font "$font"; sleep 2; done
+```
+
+-Try this to put an image on the screen:
 
 ```
 sudo fbi -d /dev/fb0 -T 1 orangepi-hookup-340x240.png
